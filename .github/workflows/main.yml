@@ -24,7 +24,7 @@ jobs:
           pip install requests
 
       - name: Run Bot Server
-        run: python SEUNGTO/myBot/bot.py
+        run: python myBot/bot.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           THEMES_JSON_URL: ${{ secrets.THEMES_JSON_URL }}
