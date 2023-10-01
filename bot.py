@@ -1,11 +1,15 @@
 import json
+import os
+import sys
 import requests
+
+TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+THEME_URL = os.getenv('THEMES_JSON_URL')
 
 
 def get_theme(stock_code):
     # GitHub에서 테마 데이터 가져오기
-    response = requests.get(
-        'https://raw.githubusercontent.com/username/repo/main/themes.json')  # 저장소 URL을 실제로 사용하는 URL로 수정해주세요.
+    response = requests.get(THEME_URL)  # 저장소 URL을 실제로 사용하는 URL로 수정해주세요.
     themes = json.loads(response.text)
 
     # 종목 코드로 테마 찾기
@@ -14,8 +18,7 @@ def get_theme(stock_code):
 
 
 def send_message(chat_id, text):
-    bot_token = "YOUR_BOT_TOKEN"  # 봇 토큰을 여기에 입력
-    url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
     params = {
         "chat_id": chat_id,
         "text": text
@@ -24,9 +27,8 @@ def send_message(chat_id, text):
 
 
 def main():
-    update = json.loads(input())
-    chat_id = update["message"]["chat"]["id"]
-    message_text = update["message"]["text"]
+    chat_id = sys.argv[1]
+    message_text = sys.argv[2]
 
     if message_text.startswith("/theme"):
         stock_code = message_text.split()[-1]
