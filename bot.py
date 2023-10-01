@@ -7,7 +7,10 @@ THEMES_URL = os.getenv('THEMES_JSON_URL')
 
 offset = None
 
+# git test
+
 def get_themes_from_github(stock_code):
+
     response = requests.get(THEMES_URL)
     themes_data = response.json()
     return themes_data.get(stock_code, [])
