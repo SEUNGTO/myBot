@@ -27,6 +27,7 @@ def send_message(chat_id, text):
 
 
 def main():
+
     chat_id = sys.argv[1]
     message_text = sys.argv[2]
 
