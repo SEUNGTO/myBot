@@ -23,9 +23,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
+      - name: Parse Telegram message
+        run: |
+          echo "::set-env name=CHAT_ID::$(echo ${{ github.event.comment.body }} | awk '{print $1}')"
+          echo "::set-env name=MESSAGE_TEXT::$(echo ${{ github.event.comment.body }} | awk '{$1=""; print $0}')"
+
+
       - name: Execute Script
         run: |
           python bot.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           THEMES_JSON_URL: ${{ secrets.THEMES_JSON_URL }}
+          CHAT_ID: ${{ env.CHAT_ID }}
+          MESSAGE_TEXT: ${{ env.MESSAGE_TEXT }}

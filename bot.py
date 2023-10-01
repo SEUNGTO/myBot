@@ -27,9 +27,8 @@ def send_message(chat_id, text):
 
 def main():
 
-    update = json.loads(input())
-    chat_id = update["message"]["chat"]["id"]
-    message_text = update["message"]["text"]
+    chat_id = os.getenv('CHAT_ID')
+    message_text = os.getenv('MESSAGE_TEXT')
 
     if message_text.startswith("/theme"):
         stock_code = message_text.split()[-1]
