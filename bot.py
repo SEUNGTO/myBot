@@ -1,6 +1,5 @@
 import json
 import os
-import sys
 import requests
 
 TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
@@ -28,8 +27,9 @@ def send_message(chat_id, text):
 
 def main():
 
-    chat_id = sys.argv[1]
-    message_text = sys.argv[2]
+    update = json.loads(input())
+    chat_id = update["message"]["chat"]["id"]
+    message_text = update["message"]["text"]
 
     if message_text.startswith("/theme"):
         stock_code = message_text.split()[-1]
